@@ -118,27 +118,23 @@ const generateTickers = digits => {
     }
   })("", digits);
   return allTickers;
-}
+};
 
-let j = 0;
 const tickers = generateTickers(5);
+var j = 0;
 
 const generateSingleRecord = () => {
   const descriptor = faker.company.catchPhraseDescriptor();
   const descriptor2 = faker.lorem.sentence();
   const material = faker.commerce.productMaterial();
   const bs = faker.company.bs();
-  let data = ({
-      ticker: tickers[j],
-      recBuy: faker.random.number(20),
-      recHold: faker.random.number(20),
-      recSell: faker.random.number(20),
-      buySum: `${material} ${bs} ${tickers[j]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}`,
-      sellSum: `${material} ${bs} ${descriptor} ${tickers[j]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}`,
-  });
-  j += 1;
-  return JSON.stringify(data);
-}
+  let data = `${tickers[j]}, ${faker.random.number(20)}, ${faker.random.number(20)}, ${faker.random.number(20)},
+  '${material} ${bs} ${tickers[j]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}',
+  '${material} ${bs} ${descriptor} ${tickers[j]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}'
+  \n`;
+  j++;
+  return data;
+};
 
 const writeOneMillionTimes = (writer, data, encoding, callback) => {
   let i = 1000000;
@@ -148,47 +144,22 @@ const writeOneMillionTimes = (writer, data, encoding, callback) => {
     do {
       i--;
       if (i === 0) {
-        // last time!
+        // last item
+        data = generateSingleRecord();
         writer.write(data, encoding, callback);
       } else {
         // See if we should continue, or wait.
-        // Don't pass the callback, because we're not done yet.
+        data = generateSingleRecord();
         ok = writer.write(data, encoding);
       }
     } while (i > 0 && ok);
     if (i > 0) {
-      // had to stop early!
-      // write some more once it drains
+      // had to stop early, bucket full, write some more once it drains
       writer.once('drain', write);
     }
-  }
-}
+  };
+};
 
 let writer = fs.createWriteStream('./dataTest1000000.csv');
-
-writeOneMillionTimes(writer, generateSingleRecord());
-
-
-
-
-
-// const stockData = () => {
-//   const sampleStocks = [];
-//   const tickers = generateTickers(5);
-//   for (let i = 0; i < 1000000; i++) {
-//     const descriptor = faker.company.catchPhraseDescriptor();
-//     const descriptor2 = faker.lorem.sentence();
-//     const material = faker.commerce.productMaterial();
-//     const bs = faker.company.bs();
-
-//     sampleStocks.push({
-//         ticker: tickers[i],
-//         recBuy: faker.random.number(20),
-//         recHold: faker.random.number(20),
-//         recSell: faker.random.number(20),
-//         buySum: `${material} ${bs} ${tickers[i]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
-//         sellSum: `${material} ${bs} ${descriptor} ${tickers[i]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
-//     });
-//   }
-//   return sampleStocks;
-// }
+writer.write('Ticker, RecBuy, RecHold, RecSell, BuySum, SellSum \n');
+writeOneMillionTimes(writer, generateSingleRecord, null, () => console.log('Finished!'));
