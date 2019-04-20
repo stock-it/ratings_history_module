@@ -1,19 +1,5 @@
 const faker = require('faker');
 const fs = require('fs');
-// const csvWriter = require('csv-write-stream');
-// const writer = csvWriter({ headers: ['ticker', 'recBuy', 'recHold', 'recSell', 'buySum', 'sellSum']});
-// const createCsvWriter = require('csv-writer').createObjectCsvWriter;  
-// const csvWriter = createCsvWriter({  
-//   path: 'dataTest.csv',
-//   header: [
-//     {id: 'ticker', title: 'Ticker'},
-//     {id: 'recBuy', title: 'RecBuy'},
-//     {id: 'recHold', title: 'RecHold'},
-//     {id: 'recSell', title: 'RecSell'},
-//     {id: 'buySum', title: 'BuySum'},
-//     {id: 'sellSum', title: 'SellSum'},
-//   ]
-// });
 
 
 const companyData = [
@@ -134,35 +120,6 @@ const generateTickers = digits => {
   return allTickers;
 }
 
-// const stockData = () => {
-//   const sampleStocks = [];
-//   const tickers = generateTickers(5);
-//   for (let i = 0; i < 1000000; i++) {
-//     const descriptor = faker.company.catchPhraseDescriptor();
-//     const descriptor2 = faker.lorem.sentence();
-//     const material = faker.commerce.productMaterial();
-//     const bs = faker.company.bs();
-
-//     sampleStocks.push({
-//         ticker: tickers[i],
-//         recBuy: faker.random.number(20),
-//         recHold: faker.random.number(20),
-//         recSell: faker.random.number(20),
-//         buySum: `${material} ${bs} ${tickers[i]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
-//         sellSum: `${material} ${bs} ${descriptor} ${tickers[i]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
-//     });
-//   }
-//   return sampleStocks;
-// }
-
-// console.time('hello');
-// stockData();
-// console.timeEnd('hello');
-// const data = fs.createReadStream(stockData());
-
-// writer.pipe(fs.createWriteStream('dataTest21000000.csv'));
-// writer.write(data);
-// writer.end();
 let j = 0;
 const tickers = generateTickers(5);
 
@@ -212,3 +169,26 @@ let writer = fs.createWriteStream('./dataTest1000000.csv');
 writeOneMillionTimes(writer, generateSingleRecord());
 
 
+
+
+
+// const stockData = () => {
+//   const sampleStocks = [];
+//   const tickers = generateTickers(5);
+//   for (let i = 0; i < 1000000; i++) {
+//     const descriptor = faker.company.catchPhraseDescriptor();
+//     const descriptor2 = faker.lorem.sentence();
+//     const material = faker.commerce.productMaterial();
+//     const bs = faker.company.bs();
+
+//     sampleStocks.push({
+//         ticker: tickers[i],
+//         recBuy: faker.random.number(20),
+//         recHold: faker.random.number(20),
+//         recSell: faker.random.number(20),
+//         buySum: `${material} ${bs} ${tickers[i]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
+//         sellSum: `${material} ${bs} ${descriptor} ${tickers[i]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[i]} ${descriptor} ${descriptor2}`,
+//     });
+//   }
+//   return sampleStocks;
+// }
