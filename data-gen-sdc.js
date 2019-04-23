@@ -122,22 +122,22 @@ const generateTickers = digits => {
 
 const tickers = generateTickers(5);
 var j = 0;
+var targetNumber = 10000000;
 
 const generateSingleRecord = () => {
   const descriptor = faker.company.catchPhraseDescriptor();
   const descriptor2 = faker.lorem.sentence();
   const material = faker.commerce.productMaterial();
   const bs = faker.company.bs();
-  let data = `${tickers[j]}, ${faker.random.number(20)}, ${faker.random.number(20)}, ${faker.random.number(20)},
-  '${material} ${bs} ${tickers[j]} ${descriptor}. \n The ${bs} ${descriptor2} \n Overall, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}',
-  '${material} ${bs} ${descriptor} ${tickers[j]}. \n For ${bs} ${descriptor2} \n Hence, ${bs} ${tickers[j]} ${descriptor} ${descriptor2}'
-  \n`;
+  let buySummary = `${material} ${bs} ${tickers[j]} ${descriptor}. The ${bs} ${descriptor2} Overall ${bs} ${tickers[j]} ${descriptor} ${descriptor2}`;
+  let sellSummary = `${material} ${bs} ${descriptor} ${tickers[j]}. For ${bs} ${descriptor2} Hence ${bs} ${tickers[j]} ${descriptor} ${descriptor2}`;
+  let data = `${tickers[j]}, ${faker.random.number(20)}, ${faker.random.number(20)}, ${faker.random.number(20)}, ${buySummary}, ${sellSummary}\n`;
   j++;
   return data;
 };
 
-const writeOneMillionTimes = (writer, data, encoding, callback) => {
-  let i = 1000000;
+const writeTargetNumberOfTimes = (writer, data, encoding, callback) => {
+  let i = targetNumber;
   write();
   function write() {
     let ok = true;
@@ -160,6 +160,9 @@ const writeOneMillionTimes = (writer, data, encoding, callback) => {
   };
 };
 
-let writer = fs.createWriteStream('./dataTest1000000.csv');
+let writer = fs.createWriteStream(`../data${targetNumber}.csv`);
 writer.write('Ticker, RecBuy, RecHold, RecSell, BuySum, SellSum \n');
-writeOneMillionTimes(writer, generateSingleRecord, null, () => console.log('Finished!'));
+
+console.time('10M records');
+writeTargetNumberOfTimes(writer, generateSingleRecord, null, () => console.log('Finished!'));
+console.timeEnd('10M records');
