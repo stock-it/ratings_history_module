@@ -8,3 +8,4 @@ npm-debug.log*
 .DS_Store
 package-lock.json
 newrelic.js
+newrelic_agent.log
