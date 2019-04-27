@@ -1,5 +1,5 @@
 const faker = require('faker');
-const db = require('./index.js');
+const db = require('./');
 const Purchase = require('./Stock2.js');
 
 const symbolsNames = [

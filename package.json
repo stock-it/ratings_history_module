@@ -11,7 +11,7 @@
     "react-dev": "webpack --watch -d",
     "db:setup": "node database-mongodb/seed.js",
     "db:setup2": "node database-mongodb/seed2.js",
-    "start": "nodemon index.js"
+    "start": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -69,6 +69,8 @@
     "mongodb": "^3.2.2",
     "mongoose": "^5.4.20",
     "mysql": "^2.16.0",
+    "newrelic": "^5.7.0",
+    "pg": "^7.10.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
