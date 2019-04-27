@@ -12,6 +12,7 @@ class Review extends React.Component {
     this.market = this.props.market;
     this.miniHeader = this.props.miniHeader; 
     this.toggleReadMore = this.toggleReadMore.bind(this);
+    console.log(this.props);
   }
 
   toggleReadMore(e) {
@@ -32,15 +33,15 @@ class Review extends React.Component {
                 <FirstPara>
                   <p>
                     <span>&#8220;</span>
-                    {this.props.oneReview.split('\n', 3)[0]}
+                    {this.props.oneReview.split('.')[0]}
                   </p>
                 </FirstPara>
                 <RDetails>
                   <p key="reviewp1">
-                    {this.props.oneReview.split('\n', 3)[1]}
+                    {this.props.oneReview.split('.')[1]}
                   </p>
                   <p key="reviewp2">
-                    {this.props.oneReview.split('\n', 3)[2]}
+                    {this.props.oneReview.split('.')[2]}
                     <span>&#8221;</span>
                   </p>
                 </RDetails>
@@ -64,7 +65,7 @@ class Review extends React.Component {
               <FirstPara>
                 <p>
                   <span>&#34;</span>
-                  {this.props.oneReview.split('\n', 3)[0]}
+                  {this.props.oneReview.split('.')[0]}
                 </p>
               </FirstPara>
               
