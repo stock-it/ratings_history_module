@@ -165,3 +165,4 @@ writer.write('Ticker, RecBuy, RecHold, RecSell, BuySum, SellSum \n');
 
 console.time('10M records');
 writeTargetNumberOfTimes(writer, generateSingleRecord, null, () => console.timeEnd('10M records'));
+console.end('10M records');
