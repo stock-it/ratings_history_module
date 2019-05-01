@@ -9,3 +9,5 @@ npm-debug.log*
 package-lock.json
 newrelic.js
 newrelic_agent.log
+SDC.pem
+passwords.env

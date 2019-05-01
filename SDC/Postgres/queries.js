@@ -1,16 +1,20 @@
 const { Pool, Client } = require('pg');
+const { PASSWORD } = require('../../passwords.env');
 
 const pool = new Pool({
-  host: 'localhost',
-  database: 'megankeesee'
+  host: '18.237.109.19',
+  user: 'power_user',
+  password: PASSWORD,
+  database: 'stockit'
 });
 
-// pool.on('error', (err, client) => {
-//   console.error('Unexpected error on idle client', err)
-//   process.exit(-1)
-// })
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+});
 
-// pool.connect();
+console.log('hello, Kevin');
+
+pool.connect();
 
 const getAllRatings = (req, res) => {
   const queryString = 'SELECT * FROM analyst_ratings ORDER BY ticker ASC';
