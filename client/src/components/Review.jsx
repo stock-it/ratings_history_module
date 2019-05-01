@@ -12,7 +12,6 @@ class Review extends React.Component {
     this.market = this.props.market;
     this.miniHeader = this.props.miniHeader; 
     this.toggleReadMore = this.toggleReadMore.bind(this);
-    console.log(this.props);
   }
 
   toggleReadMore(e) {

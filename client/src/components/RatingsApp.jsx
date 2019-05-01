@@ -35,7 +35,6 @@ class RatingsApp extends React.Component {
       axios.get(`/api/${stockID}`)
         .then(res => res.data)
         .then((result) => {
-          console.log(result);
           this.setState({
             stock: result[0],
           }, () => console.log('my new state is: ', this.state));
